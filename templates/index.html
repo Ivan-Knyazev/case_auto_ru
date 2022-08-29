@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <!-- <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0"> -->
+    <title>Sistem for AUTO.RU</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/checkout/">
+
+    <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="/static/css/form-validation.css" rel="stylesheet">
+  </head>
+  <body class="bg-light">
+    
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <!-- <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="logo" width="72" height="57"> -->
+      <h2>Определение стоимости автомобиля</h2>
+      <!-- <p class="lead" align="left">Введите данные о своём автомобиле для определения его примерной стоимости</p> -->
+    </div>
+
+    <!-- <div class="progress">
+      <div class="progress-bar progress-bar-striped" role="progressbar" aria-label="Default striped example" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+    </div> -->
+    
+
+    <!-- <div class="row g-5"> -->
+      <!-- <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">Your cart</span>
+          <span class="badge bg-primary rounded-pill">3</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Product name</h6>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <span class="text-muted">$12</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Second product</h6>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <span class="text-muted">$8</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">Third item</h6>
+              <small class="text-muted">Brief description</small>
+            </div>
+            <span class="text-muted">$5</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between bg-light">
+            <div class="text-success">
+              <h6 class="my-0">Promo code</h6>
+              <small>EXAMPLECODE</small>
+            </div>
+            <span class="text-success">−$5</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (USD)</span>
+            <strong>$20</strong>
+          </li>
+        </ul>
+
+        <form class="card p-2">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Promo code">
+            <button type="submit" class="btn btn-secondary">Redeem</button>
+          </div>
+        </form>
+      </div> -->
+      <div>
+        <h4 class="mb-4">Данные об автомобиле</h4>
+        <form enctype="multipart/form-data" class="needs-validation" method="post" action="/create_car" novalidate>
+          <div class="row g-3">
+
+            <div class="col-sm-6">
+              <label for="brand" class="form-label">Марка</label>
+              <select name="brand" class="form-select" id="brand" required>
+                <option></option>
+                <option value="BMW">BMW</option>
+                <option value="Audi">Audi</option>
+                <option value="Mercedes Benz">Mercedes Benz</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите марку из списка
+              </div>
+            </div>
+
+
+            <div class="col-sm-6">
+              <label for="model_info" class="form-label">Модель</label>
+              <select name="model_info" class="form-select" id="model_info" required>
+                <option></option>
+                <option value="4">4</option>
+                <option value="100">100</option>
+                <option value="2011">2011</option>
+                <option value="1ER">1ER</option>
+                <option value="2ACTIVETOURER">2ACTIVETOURER</option>
+                <option value="2ER">2ER</option>
+                <option value="2GRANDTOURER">2GRANDTOURER</option>
+                <option value="3ER">3ER</option>
+                <option value="5ER">5ER</option>
+                <option value="6ER">6ER</option>
+                <option value="7ER">7ER</option>
+                <option value="8ER">8ER</option>
+                <option value="A_KLASSE">A_KLASSE</option>
+                <option value="A_KLASSE_AMG">A_KLASSE_AMG</option>
+                <option value="A1">A1</option>
+                <option value="A3">A3</option>
+                <option value="A4">A4</option>
+                <option value="A4_ALLROAD">A4_ALLROAD</option>
+                <option value="A5">A5</option>
+                <option value="A6">A6</option>
+                <option value="A7">A7</option>
+                <option value="A8">A8</option>
+                <option value="ALLROAD">ALLROAD</option>
+                <option value="AMG_GLC_COUPE">AMG_GLC_COUPE</option>
+                <option value="AMG_GT">AMG_GT</option>
+                <option value="B_KLASSE">B_KLASSE</option>
+                <option value="C_KLASSE">C_KLASSE</option>
+                <option value="C_KLASSE_AMG">C_KLASSE_AMG</option>
+                <option value="CITAN">CITAN</option>
+                <option value="CL_KLASSE">CL_KLASSE</option>
+                <option value="CL_KLASSE_AMG">CL_KLASSE_AMG</option>
+                <option value="CLA_KLASSE">CLA_KLASSE</option>
+                <option value="CLA_KLASSE_AMG">CLA_KLASSE_AMG</option>
+                <option value="CLC_KLASSE">CLC_KLASSE</option>
+                <option value="CLK_KLASSE">CLK_KLASSE</option>
+                <option value="CLS_KLASSE">CLS_KLASSE</option>
+                <option value="CLS_KLASSE_AMG">CLS_KLASSE_AMG</option>
+                <option value="E_KLASSE">E_KLASSE</option>
+                <option value="E_KLASSE_AMG">E_KLASSE_AMG</option>
+                <option value="G_KLASSE">G_KLASSE</option>
+                <option value="G_KLASSE_AMG">G_KLASSE_AMG</option>
+                <option value="GL_KLASSE">GL_KLASSE</option>
+                <option value="GL_KLASSE_AMG">GL_KLASSE_AMG</option>
+                <option value="GLA_CLASS">GLA_CLASS</option>
+                <option value="GLA_CLASS_AMG">GLA_CLASS_AMG</option>
+                <option value="GLC_COUPE">GLC_COUPE</option>
+                <option value="GLK_KLASSE">GLK_KLASSE</option>
+                <option value="GLK_KLASSE_AMG">GLK_KLASSE_AMG</option>
+                <option value="GLE_KLASSE">GLE_KLASSE</option>
+                <option value="GLE_KLASSE_AMG">GLE_KLASSE_AMG</option>
+                <option value="GLE_KLASSE_COUPE">GLE_KLASSE_COUPE</option>
+                <option value="GLE_CLASS_COUPE_AMG">GLE_CLASS_COUPE_AMG</option>
+                <option value="GLK_KLASSE">GLK_KLASSE</option>
+                <option value="GLS_KLASSE">GLS_KLASSE</option>
+                <option value="GLS_KLASSE_AMG">GLS_KLASSE_AMG</option>
+                <option value="I3">I3</option>
+                <option value="I8">I8</option>
+                <option value="М_КЛАССЕ">М_КЛАССЕ</option>
+                <option value="M_KLASSE_AMG">M_KLASSE_AMG</option>
+                <option value="M1">M1</option>
+                <option value="M2">M2</option>
+                <option value="M3">M3</option>
+                <option value="M4">M4</option>
+                <option value="M5">M5</option>
+                <option value="Мб">Мб</option>
+                <option value="None">None</option>
+                <option value="Q3">Q3</option>
+                <option value="Q5">Q5</option>
+                <option value="Q7">Q7</option>
+                <option value="Q8">Q8</option>
+                <option value="R_KLASSE">R_KLASSE</option>
+                <option value="R8">R8</option>
+                <option value="RS4">RS4</option>
+                <option value="RS4">RS4</option>
+                <option value="RS5">RS5</option>
+                <option value="RS6">RS6</option>
+                <option value="RS7">RS7</option>
+                <option value="RSQ3">RSQ3</option>
+                <option value="S_CLASS_MAYBACH">S_CLASS_MAYBACH</option>
+                <option value="S_KLASSE">S_KLASSE</option>
+                <option value="S_KLASSE_AMG">S_KLASSE_AMG</option>
+                <option value="S3">S3</option>
+                <option value="S4">S4</option>
+                <option value="S5">S5</option>
+                <option value="S6">S6</option>
+                <option value="S7">S7</option>
+                <option value="S8">S8</option>
+                <option value="SL_KLASSE">SL_KLASSE</option>
+                <option value="SL_KLASSE_AMG">SL_KLASSE_AMG</option>
+                <option value="SLC_KLASSE">SLC_KLASSE</option>
+                <option value="SLC_KLASSE_AMG">SLC_KLASSE_AMG</option>
+                <option value="SLK_KLASSE">SLK_KLASSE</option>
+                <option value="SLR_KLASSE">SLR_KLASSE</option>
+                <option value="SLS_AMG">SLS_AMG</option>
+                <option value="SQ5">SQ5</option>
+                <option value="SQ7">SQ7</option>
+                <option value="TT">TT</option>
+                <option value="TTS">TTS</option>
+                <option value="V_KLASSE">V_KLASSE</option>
+                <option value="VIANO">VIANO</option>
+                <option value="VITO">VITO</option>
+                <option value="W124">W124</option>
+                <option value="W201">W201</option>
+                <option value="X_KLASSE">X_KLASSE</option>
+                <option value="X1">X1</option>
+                <option value="X2">X2</option>
+                <option value="X3">X3</option>
+                <option value="X3_M">X3_M</option>
+                <option value="X4">X4</option>
+                <option value="X4_M">X4_M</option>
+                <option value="X5">X5</option>
+                <option value="X5_M">X5_M</option>
+                <option value="Х6">Х6</option>
+                <option value="X6_M">X6_M</option>
+                <option value="X7">X7</option>
+                <option value="Z1">Z1</option>
+                <option value="Z3">Z3</option>
+                <option value="Z4">Z4</option>
+                <option value="Z8">Z8</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите модель из списка
+              </div>
+            </div>
+
+
+            <!-- <div class="col-sm-6">
+              <label for="model_info" class="form-label">Модель</label>
+              <input name="model_info" type="text" class="form-control" id="model_info" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется модель
+              </div>
+            </div> -->
+
+            <div class="col-sm-6">
+              <label for="bodyType" class="form-label">Тип кузова</label>
+              <input name="bodyType" type="text" class="form-control" id="bodyType" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется тип кузова
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="color" class="form-label">Цвет</label>
+              <select name="color" class="form-select" id="color" required>
+                <option></option>
+                <option value="чёрный">чёрный</option>
+                <option value="серебристый">серебристый </option>
+                <option value="белый">белый</option>
+                <option value="синий">синий</option>
+                <option value="серый">серый</option>
+                <option value="красный">красный</option>
+                <option value="коричневый">коричневый</option>
+                <option value="зелёный">зелёный</option>
+                <option value="голубой">голубой</option>
+                <option value="пурпурный">пурпурный</option>
+                <option value="бежевый">бежевый</option>
+                <option value="фиолетовый">фиолетовый</option>
+                <option value="оранжевый">оранжевый</option>
+                <option value="золотистый">золотистый</option>
+                <option value="жёлтый">жёлтый</option>
+                <option value="розовый">розовый</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите цвет из списка
+              </div>
+            </div>
+
+            <!-- <div class="col-sm-6">
+              <label for="color" class="form-label">Цвет</label>
+              <input name="color" type="text" class="form-control" id="color" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется цвет
+              </div>
+            </div> -->
+
+            <div class="col-sm-6">
+              <label for="engineDisplacement" class="form-label">Объём двигателя (LTR)</label>
+              <input name="engineDisplacement" type="text" class="form-control" id="engineDisplacement" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется объём двигателя
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="enginePower" class="form-label">Мощность двигателя (л.с.)</label>
+              <input name="enginePower" type="number" class="form-control" id="enginePower" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется мощность двигателя
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="fuelType" class="form-label">Тип топлива</label>
+              <select name="fuelType" class="form-select" id="fuelType" required>
+                <option></option>
+                <option value="бензин">бензин</option>
+                <option value="дизель">дизель</option>
+                <option value="гибрид">гибрид</option>
+                <option value="электро">электро</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите тип топлива из списка
+              </div>
+            </div>
+
+
+            <div class="col-sm-6">
+              <label for="mileage" class="form-label">Пробег (км)</label>
+              <input name="mileage" type="number" class="form-control" id="mileage" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется пробег
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="productionDate" class="form-label">Год выпуска</label>
+              <input name="productionDate" type="number" class="form-control" id="productionDate" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется год выпуска
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="name" class="form-label">Наименование двигателя</label>
+              <input name="name" type="text" class="form-control" id="name" placeholder="" >
+              <div class="invalid-feedback">
+                Требуется название двигателя
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="numberOfDoors" class="form-label">Количество дверей</label>
+              <input name="numberOfDoors" type="number" class="form-control" id="numberOfDoors" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется количество дверей
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="modelDate" class="form-label">Год поступления модели в продажу</label>
+              <input name="modelDate" type="number" class="form-control" id="modelDate" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется год поступления модели в продажу
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="owners" class="form-label">Количество владельцев</label>
+              <input name="owners" type="number" class="form-control" id="owners" placeholder="" required>
+              <div class="invalid-feedback">
+                Требуется количество владельцев
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <label for="vehicleTransmission" class="form-label">Тип трансмиссии</label>
+              <select name="vehicleTransmission" class="form-select" id="vehicleTransmission" required>
+                <option></option>
+                <option value="автоматическая">автоматическая</option>
+                <option value="вариатор">вариатор</option>
+                <option value="маханическая">маханическая</option>
+                <option value="роботизированная">роботизированная</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите тип трансмиссии из списка
+              </div>
+            </div>
+
+
+            <div class="col-sm-6">
+              <label for="vehicle_passport" class="form-label">ПТС</label>
+              <select name="vehicle_passport" class="form-select" id="vehicle_passport" required>
+                <option></option>
+                <option value="оригинал">оригинал</option>
+                <option value="дубликат">дубликат</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите ПТС из списка
+              </div>
+            </div>
+
+
+            <div class="col-sm-6">
+              <label for="type_of_drive" class="form-label">Вид привода</label>
+              <select name="type_of_drive" class="form-select" id="type_of_drive" required>
+                <option></option>
+                <option value="полный">полный</option>
+                <option value="передний">передний</option>
+                <option value="задний">задний</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите вид привода из списка
+              </div>
+            </div>
+
+
+            <div class="col-sm-6">
+              <label for="wheel" class="form-label">Расположение руля</label>
+              <select name="wheel" class="form-select" id="wheel" required>
+                <option></option>
+                <option value="левый">левый</option>
+                <option value="правый">правый</option>
+              </select>
+              <div class="invalid-feedback">
+                Выберите тип расположения руля
+              </div>
+            </div>
+
+
+            <!-- <div class="col-md-3">
+              <label for="time_of_ownership_1" class="form-label">Время владения: лет</label>
+              <input name="time_of_ownership_1" type="number" class="form-control" id="time_of_ownership_1" placeholder="лет" required>
+              <div class="invalid-feedback">
+                Укажите, сколько лет Вы владеете автомобилем
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="time_of_ownership_2" class="form-label">месяцев</label>
+              <input name="time_of_ownership_2" type="number" class="form-control" id="time_of_ownership_2" placeholder="месяцев" required>
+              <div class="invalid-feedback">
+                Укажите, сколько месяцев Вы владеете автомобилем
+              </div>
+            </div> -->
+
+
+            <hr class="my-4">
+            <h4 class="mb-3">Описание автомобиля</h4>
+
+
+            <div class="col-12">
+              <textarea name="description" type="text" class="form-control" id="description" placeholder="" value="" required></textarea>
+              <div class="invalid-feedback">
+                Требуется описание
+              </div>
+            </div>
+
+
+
+
+            <!-- <hr class="my-4">
+            <h4 class="mb-3">Загрузка фото</h4>
+
+
+            <div class="col-6">
+                <p><input type="file" accept="image/jpeg, image/png, image/bmp, image/heif, image/hevc, image/gif" name="image" id="image" required>
+              <div class="invalid-feedback">
+                Требуется фото автомобиля
+              </div>
+            </div> -->
+            
+
+            <!-- <div class="col-sm-6">
+              <label for="vehicleConfiguration" class="form-label">??? Конфигурация транспортного средства</label>
+              <input type="text" class="form-control" id="vehicleConfiguration" placeholder="" value="" required>
+              <div class="invalid-feedback">
+                Требуется конфигурация транспортного средства
+              </div>
+            </div> -->
+
+
+
+
+            <!-- <hr class="my-4"> -->
+
+            <!-- <div class="col-12">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="username" placeholder="Username" required>
+              <div class="invalid-feedback">
+                  Your username is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
+              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <div class="invalid-feedback">
+                Please enter a valid email address for shipping updates.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+              <div class="invalid-feedback">
+                Please enter your shipping address.
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
+              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+            </div>
+
+            <div class="col-md-5">
+              <label for="country" class="form-label">Country</label>
+              <select class="form-select" id="country" required>
+                <option value="">Choose...</option>
+                <option>United States</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid country.
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <label for="state" class="form-label">State</label>
+              <select class="form-select" id="state" required>
+                <option value="">Choose...</option>
+                <option>California</option>
+              </select>
+              <div class="invalid-feedback">
+                Please provide a valid state.
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="zip" class="form-label">Zip</label>
+              <input type="text" class="form-control" id="zip" placeholder="" required>
+              <div class="invalid-feedback">
+                Zip code required.
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="same-address">
+            <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
+          </div>
+          body
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="save-info">
+            <label class="form-check-label" for="save-info">Save this information for next time</label>
+          </div>
+
+          <hr class="my-4"> -->
+
+          <!-- <h4 class="mb-3">Payment</h4>
+
+          <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="credit">Credit card</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-check-label" for="debit">Debit card</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
+              <label class="form-checkbody-label" for="paypal">PayPal</label>
+            </div>
+          </div>
+
+          <div class="row gy-3">
+            <div class="col-md-6">
+              <label for="cc-name" class="form-label">Name on card</label>
+              <input type="text" class="form-control" id="cc-name" placeholder="" required>
+              <small class="text-muted">Full name as displayed on card</small>
+              <div class="invalid-feedback">
+                Name on card is required
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="cc-number" class="form-label">Credit card number</label>
+              <input type="text" class="form-control" id="cc-number" placeholder="" required>
+              <div class="invalid-feedback">
+                Credit card number is required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-expiration" class="form-label">Expiration</label>
+              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
+              <div class="invalid-feedback">
+                Expiration date required
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <label for="cc-cvv" class="form-label">CVV</label>
+              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
+              <div class="invalid-feedback">
+                Security code required
+              </div>
+            </div>
+          </div> -->
+
+          <hr class="my-4">
+
+          <button class="w-100 btn btn-primary btn-lg" type="submit">Узнать стоимость</button>
+        </form>
+      </div>
+    <!-- </div> -->
+  </main>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2022 <b>Team 95</b></p>
+    <!-- <ul class="list-inline">
+      <li class="list-inline-item"><a href="#">Privacy</a></li>
+      <li class="list-inline-item"><a href="#">Terms</a></li>
+      <li class="list-inline-item"><a href="#">Support</a></li>
+    </ul> -->
+  </footer>
+</div>
+
+    <!-- <script src="../assets/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="/static/js/form-validation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+  </body>
+</html>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script> -->
