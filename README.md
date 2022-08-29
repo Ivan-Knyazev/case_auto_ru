@@ -16,7 +16,7 @@
 
 Активация виртуального окружения
 
-`source <venv_name>/bin/activate`
+`source venv/bin/activate`
 
 * Деактивация выполняется командой `deactivate`
 
