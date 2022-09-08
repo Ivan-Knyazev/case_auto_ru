@@ -1,6 +1,7 @@
 import pandas as pd
 import sqlite3
 import numpy as np
+from pathlib import Path
 
 from sklearn import preprocessing
 import pickle
@@ -8,6 +9,7 @@ import pickle
 import re
 from pymorphy2 import MorphAnalyzer
 import nltk
+
 nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
@@ -45,18 +47,20 @@ def result_for_network():
     auto_data.drop('id', axis=1, inplace=True)
 
     def change_params(value):
-      if value == 'None':
-        return 'Other'
-      else:
-        return value
+        if value == 'None':
+            return 'Other'
+        else:
+            return value
+
     auto_data['model_info'] = auto_data['model_info'].apply(change_params)
 
     def engine(value):
-      if value != 'undefined LTR':
-        new_value = float(value[0:3])
-      else:
-        new_value = 0.0
-      return new_value
+        if value != 'undefined LTR':
+            new_value = float(value[0:3])
+        else:
+            new_value = 0.0
+        return new_value
+
     auto_data['engine_v'] = auto_data['engineDisplacement'].apply(engine)
 
     auto_data['engine_v'] = auto_data.engine_v.apply(lambda x: auto_data['engine_v'].mean() if x == 0.0 else x)
@@ -64,19 +68,23 @@ def result_for_network():
     auto_data.drop('engineDisplacement', axis=1, inplace=True)
 
     color_arr = ['чёрный', 'белый', 'серый', 'синий', 'серебристый']
+
     def change_cat(value):
-      if value in color_arr:
-        return value
-      else:
-        return 'другой цвет'
+        if value in color_arr:
+            return value
+        else:
+            return 'другой цвет'
+
     auto_data['color'] = auto_data['color'].apply(change_cat)
 
     type_arr = ['седан', 'внедорожник 5 дв.', 'купе', 'хэтчбек 5 дв.', 'лифтбек']
+
     def change_cat(value):
-      if value in type_arr:
-        return value
-      else:
-        return 'другой кузов'
+        if value in type_arr:
+            return value
+        else:
+            return 'другой кузов'
+
     auto_data['bodyType'] = auto_data['bodyType'].apply(change_cat)
 
     auto_data['гараж'] = auto_data.description.apply(lambda x: 1 if 'гараж' in x else 0)
@@ -103,17 +111,19 @@ def result_for_network():
     if auto_data['productionDate'].iloc[0] >= 2022:
         auto_data['m_per_y'] = auto_data.mileage
     else:
-        auto_data['m_per_y'] = auto_data.mileage/(2022 - auto_data['productionDate'])
+        auto_data['m_per_y'] = auto_data.mileage / (2022 - auto_data['productionDate'])
 
-    auto_data['hard_usage'] = auto_data['m_per_y'].apply(lambda x: 1 if x >=20000 else 0)
-    auto_data['trash'] = auto_data.mileage.apply(lambda x: 1 if x>=300000 else 0)
+    auto_data['hard_usage'] = auto_data['m_per_y'].apply(lambda x: 1 if x >= 20000 else 0)
+    auto_data['trash'] = auto_data.mileage.apply(lambda x: 1 if x >= 300000 else 0)
 
     def car_age(value):
-      return 2022 - value
+        return 2022 - value
+
     auto_data['car_age'] = auto_data['productionDate'].apply(car_age)
 
     def model_age(value):
-      return 2022 - value
+        return 2022 - value
+
     auto_data['modelAge'] = auto_data['modelDate'].apply(model_age)
 
     auto_data.drop('productionDate', axis=1, inplace=True)
@@ -122,7 +132,9 @@ def result_for_network():
     auto_data['mileage'] = np.log(auto_data['mileage'])
     auto_data['m_per_y'] = np.log(auto_data['m_per_y'])
 
-    auto_data_n = pd.read_csv('auto_data')
+    # auto_data_n = pd.read_csv('/neural_network/auto_data')
+    path = Path(Path.cwd(), "neural_network", "auto_data")
+    auto_data_n = pd.read_csv(path)
 
     auto_data = pd.concat([auto_data, auto_data_n], ignore_index=True)
 
@@ -130,14 +142,17 @@ def result_for_network():
 
     auto_data.drop('date', axis=1, inplace=True)
 
-    auto_data.drop('Unnamed: 0', axis=1, inplace= True)
+    auto_data.drop('Unnamed: 0', axis=1, inplace=True)
 
-    with open('data.pickle', 'rb') as handle:
+    # with open('/neural_network/data.pickle', 'rb') as handle:
+    #     b = pickle.load(handle)
+    path = Path(Path.cwd(), "neural_network", "data.pickle")
+    with open(path, 'rb') as handle:
         b = pickle.load(handle)
 
     columns_to_change = ['bodyType', 'brand', 'color', 'fuelType',
-           'model_info', 'vehicleTransmission', 'owners',
-           'vehicle_passport', 'type_of_drive', 'wheel']
+                         'model_info', 'vehicleTransmission', 'owners',
+                         'vehicle_passport', 'type_of_drive', 'wheel']
 
     set(auto_data_n.columns) - set(columns_to_change)
 
@@ -160,22 +175,24 @@ def result_for_network():
     result_df = result_df.loc[0:2]
 
     df = result_df['description']
-    result_df.drop('description', inplace=True, axis = 1)
+    result_df.drop('description', inplace=True, axis=1)
 
     X = result_df
 
-    with open('scaler.pickle', 'rb') as handle:
+    # with open('/neural_network/scaler.pickle', 'rb') as handle:
+    #     b = pickle.load(handle)
+    path = Path(Path.cwd(), "neural_network", "scaler.pickle")
+    with open(path, 'rb') as handle:
         b = pickle.load(handle)
 
     X_scaled = b.transform(X)
-
 
     patterns = "[A-Za-z0-9!#$%&'()*+,./:;<=>?@[\]^_`{|}~—\"\-]+"
     stopwords_ru = stopwords.words("russian")
     morph = MorphAnalyzer()
 
     def lemmatize(doc, stopwords=stopwords_ru):
-        #исключаем символы не подходящие под патерны
+        # исключаем символы не подходящие под патерны
         doc = re.sub(patterns, ' ', doc)
         tokens = []
         for token in doc.split():
@@ -184,20 +201,24 @@ def result_for_network():
                 token = morph.normal_forms(token)[0]
                 tokens.append(token)
         return ' '.join(tokens)
+
     df.apply(lemmatize)
 
-    vocab_size = 100000 # количество слов
-    oov_tok = '<OOV>' # OOV = Out of Vocabulary
+    vocab_size = 100000  # количество слов
+    oov_tok = '<OOV>'  # OOV = Out of Vocabulary
 
-    with open('tokenizer.pickle', 'rb') as handle:
+    # with open('/neural_network/tokenizer.pickle', 'rb') as handle:
+    #     b = pickle.load(handle)
+    path = Path(Path.cwd(), "neural_network", "tokenizer.pickle")
+    with open(path, 'rb') as handle:
         b = pickle.load(handle)
 
     df = b.texts_to_sequences(df)
 
-    trunc_type = 'post' #метод ограничения
-    padding_type = 'post' #метод дополнения
-    embedding_dim = 64 # размер эмбединга
-    max_length = 300 # максимальная длина последовательности
+    trunc_type = 'post'  # метод ограничения
+    padding_type = 'post'  # метод дополнения
+    embedding_dim = 64  # размер эмбединга
+    max_length = 300  # максимальная длина последовательности
 
     # ограничиваем длину последовательностей
 
@@ -208,23 +229,26 @@ def result_for_network():
         truncating=trunc_type
     )
 
-    model = tf.keras.models.load_model('model.h5')
+    # model = tf.keras.models.load_model('/neural_network/model.h5')
+    path = Path(Path.cwd(), "neural_network", "model.h5")
+    model = tf.keras.models.load_model(path)
+
     predictions = model.predict([test_padded, X_scaled])
-
-
 
     # !pip install catboost
 
-
     from_file = CatBoostRegressor()
-    from_file.load_model("meta")
+
+    # from_file.load_model("meta")
+    path = Path(Path.cwd(), "neural_network", "meta")
+    from_file.load_model(path)
 
     test_predict_catboost = np.exp(from_file.predict(X_scaled))
 
     def mape(y_true, y_pred):
-        return np.mean(np.abs((y_pred-y_true)/y_true))
+        return np.mean(np.abs((y_pred - y_true) / y_true))
 
-    all_predict = (test_predict_catboost + predictions.reshape(-1))/2
+    all_predict = (test_predict_catboost + predictions.reshape(-1)) / 2
     # print(all_predict[0])
 
     return all_predict[0]

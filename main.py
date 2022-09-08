@@ -11,7 +11,7 @@ from network_2 import result_for_network
 
 UPLOAD_FOLDER = '/home/ivan/PycharmProjects/server_ml/fotos'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 app = Flask(__name__)
 # run_with_ngrok(app)
@@ -47,12 +47,14 @@ class Data(db.Model):
     # price = db.Column(db.Integer)
     date = db.Column(db.Integer, default=int(time.time()))
 
+
 def is_float(n):
     try:
         float(n)
         return True
     except ValueError:
         return False
+
 
 @app.route('/')
 def index():
@@ -101,12 +103,13 @@ def create_car():
         print(e)
         return render_template("mistake.html", error=error)
 
-    result = round(result_for_network()*1.4)
+    result = round(result_for_network() * 1.4)
     # res = number(result)
     # res = format(result, ".")
 
     locale.setlocale(locale.LC_ALL, '')
-    res = locale.format('%d', result, grouping=True)
+    # res = locale.format('%d', result, grouping=True)
+    res = locale.format_string('%d', result, grouping=True)
     print(res)
 
     return render_template("thanks.html", result=res,
@@ -131,44 +134,7 @@ def create_car_foto():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=True)
+    # from waitress import serve
+    app.run(host='0.0.0.0', port=8000, debug=True)
     # app.run()
 
-'''
-# Загрузка файла
-file = request.files['image']
-filename = secure_filename(file.filename)
-file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-print('File uploaded successfully!')
-
-# Большая БД
-class Data1(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    enginePower = db.Column(db.Integer, nullable=True)
-    mileage = db.Column(db.Integer, nullable=True)
-    numberOfDoors = db.Column(db.Integer, nullable=True)
-    price = db.Column(db.Float, nullable=True)
-    engine_v = db.Column(db.Float, nullable=True)
-    garage = db.Column(db.Integer, nullable=True)
-    gift = db.Column(db.Integer, nullable=True)
-    auction = db.Column(db.Integer, nullable=True)
-    tires = db.Column(db.Integer, nullable=True)
-    dealer = db.Column(db.Integer, nullable=True)
-    heating = db.Column(db.Integer, nullable=True)
-    exchange = db.Column(db.Integer, nullable=True)
-    service = db.Column(db.Integer, nullable=True)
-    urgent = db.Column(db.Integer, nullable=True)
-    full = db.Column(db.Integer, nullable=True)
-    discount = db.Column(db.Integer, nullable=True)
-    disk = db.Column(db.Integer, nullable=True)
-    wd = db.Column(db.Integer, nullable=True)
-    gift = db.Column(db.Integer, nullable=True)
-    gift = db.Column(db.Integer, nullable=True)
-
-    psw = db.Column(db.String(500), nullable=False)
-    date = db.Column(db.DateTime, default=int(time.time()))
-
-    def __repr__(self):
-        return f"<users {self.id}>"
-
-'''
