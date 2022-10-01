@@ -11,11 +11,11 @@ from network_2 import result_for_network
 
 UPLOAD_FOLDER = '/home/ivan/PycharmProjects/server_ml/fotos'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 app = Flask(__name__)
 # run_with_ngrok(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///base.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 db = SQLAlchemy(app)
@@ -137,4 +137,3 @@ if __name__ == '__main__':
     # from waitress import serve
     app.run(host='0.0.0.0', port=8000, debug=True)
     # app.run()
-
