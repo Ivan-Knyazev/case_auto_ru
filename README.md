@@ -4,7 +4,9 @@
 
 ## Переход в директорию приложения:
 
-`cd <app directory>`
+```
+cd <app directory>
+```
 
 ## Виртуальное окружение
 
@@ -12,19 +14,28 @@
 
 - Если у Вас не установлен пакет python3-venv, выполните:
 
-  `sudo apt install -y python3-venv`
+  ```bash
+  sudo apt install -y python3-venv
+  ```
 
-`python3 -m venv venv`
+```bash
+python3 -m venv venv
+```
 
 Активация виртуального окружения
 
-`source venv/bin/activate`
+```bash
+source venv/bin/activate
+```
+
 
 - Деактивация выполняется командой `deactivate`
 
 Установка всех необходимых пакетов
 
-`sudo pip3 install -r requirements.txt`
+```bash
+sudo pip3 install -r requirements.txt
+```
 
 ## Запуск приложения
 
@@ -34,7 +45,9 @@
 
 Старт приложения
 
-`python3 main.py`
+```bash
+python3 main.py
+```
 
 Поздравляем!
 Можете переходить в браузере по [адресу](http://127.0.0.1:8000 "localhost:8000") http://127.0.0.1:8000 и пользоваться сервисом
