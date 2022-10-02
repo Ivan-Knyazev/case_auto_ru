@@ -2,9 +2,9 @@
 
 echo "Customization virtual environment..."
 sudo apt install -y python3-venv
-python3 -m venv venv
-source venv/bin/activate
-pip3 install -r requirements.txt
+python3 -m venv venv    # Creating virtual environment
+source venv/bin/activate    # Activating virtual environment
+pip3 install -r requirements.txt    # Install packages
 # echo "+ Virtual environment was activated!"
 
 echo "Create DataBase..."
