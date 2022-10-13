@@ -105,7 +105,7 @@ python3 main.py
 ### 1. Создание Docker образа:
 
 ```bash
-docker build -t auto_ru:0.0.1 .
+sudo docker build -t auto_ru:0.0.1 .
 ```
 
 <!-- ```bash
@@ -116,5 +116,5 @@ docker build --platform=linux/amd64 -t auto_ru:0.0.1 .
 ### 2. Запуск контейнера:
 
 ```bash
-docker run -p 8000:8000 -d auto_ru:0.0.1
+sudo docker run -p 8000:8000 -d auto_ru:0.0.1
 ```
