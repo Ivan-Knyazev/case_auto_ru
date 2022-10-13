@@ -1,4 +1,4 @@
-# Система определения стоимости автомобиля по его характеристикам и описанию
+  # Система определения стоимости автомобиля по его характеристикам и описанию
 
 
 ## Инструкция для запуска приложения на OS Windows 10, 11 и локального использования
@@ -28,7 +28,15 @@ python main.py
 
 ## Инструкция для запуска приложения на OS Linux (Ubuntu)
 
+* Работоспособность проверена на Ubuntu 22.04.1 LTS
+
 ### 1. Установка git lfs:
+
+* Если у Вас не установлен `curl`, то выполните:
+
+  ```bash
+  sudo apt install curl
+  ```
 
 ```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
@@ -45,7 +53,7 @@ sudo apt-get install git-lfs
 git lfs install --skip-smudge
 ```
 
-Конирование репозитория:
+Клонирование репозитория:
 
 - По SSH:
   ```bash
